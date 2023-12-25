@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profit Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding-right: 100px;
+    }
+
+    .calculator-container {
+      background-color: #5a5a5a;
+      color: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      width: 350px;
+      text-align: left;
+    }
+
+    .calculator h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .calculator label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .calculator input[type="range"] {
+      width: 100%;
+      margin-bottom: 10px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: transparent;
+    }
+
+    .calculator input[type="range"]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 8px;
+      cursor: pointer;
+      background: #ff0000;
+      border-radius: 4px;
+    }
+
+    .calculator input[type="range"]::-webkit-slider-thumb {
+      border: none;
+      height: 20px;
+      width: 20px;
+      border-radius: 10px;
+      background: #ffdd00;
+      cursor: pointer;
+      -webkit-appearance: none;
+      margin-top: -6px;
+    }
+
+    .calculator input[type="range"]:focus {
+      outline: none;
+    }
+
+    .value-display {
+      margin-bottom: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .results p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    .results p span {
+      font-weight: bold;
+    }
+
+    .consultation-button {
+      background-color: #ff0000;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 20px;
+      text-transform: uppercase;
+      font-weight: bold;
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+
+    .input-container {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .item-value-text {
+      font-weight: 800;
+      color: white;
+      font-size: large;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="calculator-container">
+    <h2>Rechne die Steigerung Deines Betriebs­ergebnisses aus!</h2>
+    <div class="calculator">
+      <label for="units-slider">Anzahl verwalteter Wohneinheiten*</label>
+      <div class="input-container">
+        <input type="range" id="units-slider" min="750" max="10000" value="2500" step="250" oninput="updateValues()" />
+        <div class="value-display">
+          <span id="units-value">2.500</span>
+        </div>
+      </div>
+      <div class="results">
+        <div>
+          <p>durchschnittliche Anzahl von Schäden je Jahr</p>
+          <p id="claims-per-year" class="item-value-text">125</p>
+        </div>
+        <div>
+          <p>Normale Bearbeitungsdauer in Stunden</p>
+          <p id="processing-time" class="item-value-text">1.125</p>
+        </div>
+        <div>
+          <p>Einsparung der Stunden im Jahr</p>
+          <p id="saving-hours" class="item-value-text">1.063</p>
+        </div>
+        <div>
+          <p>Einsparung der Monate im Jahr:</p>
+          <p id="saving-months" class="item-value-text">7</p>
+        </div>
+        <div>
+          <p>Steigerung des Betriebsergebnisses</p>
+          <p id="profit-increase" class="item-value-text">48.336,- €</p>
+        </div>
+        <div>
+          <p>notwendige Investition (2 Std. Deiner Zeit)</p>
+          <p id="investment" class="item-value-text">0,- €</p>
+        </div>
+      </div>
+      <button class="consultation-button">Erstgespräch vereinbaren</button>
+    </div>
+  </div>
+  <script>
+    function updateValues() {
+      const unitsSlider = document.getElementById("units-slider");
+      const unitsValue = document.getElementById("units-value");
+      const claimsPerYear = document.getElementById("claims-per-year");
+      const processingTime = document.getElementById("processing-time");
+      const savingHours = document.getElementById("saving-hours");
+      const savingMonths = document.getElementById("saving-months");
+      const profitIncrease = document.getElementById("profit-increase");
+      const investment = document.getElementById("investment");
+
+      const units = parseInt(unitsSlider.value);
+      const avgClaims = Math.round(units / 20);
+      const normProcessingTime = Math.round(units * 0.45);
+      const savedHours = Math.round(units * 0.425);
+      
+      unitsValue.textContent = units.toLocaleString('de-DE');
+
+      let savedMonths = 2;
+      if (units >= 1000) savedMonths = 3;
+      if (units >= 1500) savedMonths = 4;
+      if (units >= 1750) savedMonths = 5;
+      if (units >= 2000) savedMonths = 6;
+      if (units >= 2500) savedMonths = 7;
+      if (units >= 3000) savedMonths = 8;
+      if (units >= 3500) savedMonths = 9;
+      if (units >= 3750) savedMonths = 10;
+      if (units >= 4250) savedMonths = 11;
+      if (units >= 4500) savedMonths = 12;
+      if (units >= 5000) savedMonths = 13;
+      if (units >= 5500) savedMonths = 14;
+      if (units >= 5750) savedMonths = 15;
+      if (units >= 6250) savedMonths = 16;
+      if (units >= 6500) savedMonths = 17;
+      if (units >= 7000) savedMonths = 18;
+      if (units >= 7250) savedMonths = 19;
+      if (units >= 7750) savedMonths = 20;
+      if (units >= 8250) savedMonths = 21;
+      if (units >= 8500) savedMonths = 22;
+      if (units >= 9000) savedMonths = 23;
+      if (units >= 9250) savedMonths = 24;
+      if (units >= 9750) savedMonths = 25;
+      if (units >= 10000) savedMonths = 26;
+
+      const profitPerHour = 45.5;
+      const profitInc = Math.round(savedHours * profitPerHour);
+
+      claimsPerYear.textContent = avgClaims.toLocaleString('de-DE');
+      processingTime.textContent = normProcessingTime.toLocaleString('de-DE');
+      savingHours.textContent = savedHours.toLocaleString('de-DE');
+      savingMonths.textContent = savedMonths.toLocaleString('de-DE');
+      profitIncrease.textContent = `${profitInc.toLocaleString('de-DE')},- €`;
+      investment.textContent = `0,- €`;
+    }
+
+    window.onload = updateValues;
+  </script>
+
+
+
+</body>
+
+</html>
